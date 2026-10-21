@@ -1,0 +1,14 @@
+{
+  "name": "supper-sense",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local Alexa+ style pantry meal planner backed by a Streamable HTTP MCP server.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

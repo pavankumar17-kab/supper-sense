@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f3ed" />
+    <title>Supper Sense — dinner with what you have</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Supper Sense home">
+          <span class="brand-mark" aria-hidden="true">✳</span>
+          <span>supper<span class="brand-light">sense</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="privacy"><span class="privacy-dot"></span><span id="privacy-short">Your kitchen, kept private</span></span>
+          <button class="icon-button" id="shopping-open" aria-label="Open shopping list" title="Shopping list">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+            <span class="list-count" id="list-count">0</span>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> A little more calm at dinnertime</div>
+            <h1>Good dinner.<br /><em>Less guesswork.</em></h1>
+            <p>Tell me what kind of evening you’re having. I’ll start with what’s already in your kitchen.</p>
+            <div class="hero-meta"><span class="status-dot" id="connection-dot"></span><span id="connection-label">Connecting to your kitchen…</span><span class="meta-separator">·</span><span>Nothing leaves this device</span></div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="art-sun"></div><div class="art-leaf leaf-one"></div><div class="art-leaf leaf-two"></div>
+            <div class="art-bowl"><div class="bowl-food"><span></span><span></span><span></span><span></span><span></span><i></i></div></div>
+            <div class="art-sparkle sparkle-one">✦</div><div class="art-sparkle sparkle-two">✳</div>
+            <div class="art-caption">a good thing, made slowly</div>
+          </div>
+        </section>
+
+        <section class="workspace" aria-label="Dinner planner">
+          <div class="conversation-column">
+            <div class="section-heading"><div><span class="step-number">01</span><h2>What sounds good?</h2></div><span class="helper-label">Your dinner companion</span></div>
+            <div class="chat-card">
+              <div class="conversation" id="conversation" aria-live="polite">
+                <div class="message assistant-message">
+                  <div class="avatar">s<span>✳</span></div>
+                  <div class="message-body"><div class="message-name">Supper Sense <span class="message-time">just now</span></div><div class="bubble">Hi! I’ve got a few things in your pantry. What kind of dinner would make tonight easier?</div></div>
+                </div>
+                <div class="starter-prompts" id="starter-prompts">
+                  <button class="prompt-chip" data-prompt="Help me make dinner for two with spinach and lentils.">Use spinach &amp; lentils <span>↗</span></button>
+                  <button class="prompt-chip" data-prompt="Remember that I avoid dairy.">Remember no dairy <span>↗</span></button>
+                  <button class="prompt-chip" data-prompt="What should I cook tonight?">Surprise me tonight <span>↗</span></button>
+                </div>
+              </div>
+              <form class="composer" id="composer">
+                <label class="sr-only" for="prompt-input">Tell Supper Sense what you need</label>
+                <textarea id="prompt-input" rows="1" placeholder="Tell me what you’re in the mood for…" maxlength="300"></textarea>
+                <button class="send-button" type="submit" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14-7-4 14-3-6-7-1Z"/><path d="m12 13 7-8"/></svg></button>
+                <div class="composer-foot"><span>Try “help me use the spinach”</span><span><kbd>↵</kbd> to send</span></div>
+              </form>
+            </div>
+            <div class="privacy-note"><span>⌂</span><span id="privacy-detail">Pantry updates stay with this Supper Sense instance.</span></div>
+          </div>
+
+          <aside class="side-column">
+            <div class="side-card pantry-card">
+              <div class="side-heading"><div><span class="step-number">02</span><h2>In your pantry</h2></div><button class="text-button" id="pantry-refresh">Refresh</button></div>
+              <div class="pantry-summary" id="pantry-summary">Checking what’s on hand…</div>
+              <div class="ingredient-list" id="pantry-list"></div>
+              <form class="pantry-add" id="pantry-form"><label class="sr-only" for="pantry-input">Add an ingredient</label><input id="pantry-input" maxlength="50" placeholder="Add an ingredient…" autocomplete="off" /><button type="submit" aria-label="Add ingredient">+</button></form>
+              <div class="preference-row" id="preference-row"><span class="preference-icon">♡</span><span id="preference-label">No preferences saved</span><button id="preference-edit" class="text-button">Set</button></div>
+            </div>
+
+            <div class="side-card tool-card">
+              <div class="tools-heading"><span class="live-indicator"><i></i> LIVE CONNECTION</span><span class="protocol-pill">MCP</span></div>
+              <div class="tools-title">Your kitchen assistant</div>
+              <p>A private kitchen assistant that checks your pantry, remembers preferences, plans dinner, and keeps your shared list.</p>
+              <div class="tool-activity" id="tool-activity"><span class="activity-check">✓</span><div><strong>Connected to your pantry</strong><small>Ready when you are</small></div></div>
+              <div class="tool-footer"><span>MCP tools connect this page to your kitchen</span><span class="lock-icon">⌑</span></div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="meal-section" id="meal-section" hidden>
+          <div class="section-heading meal-section-heading"><div><span class="step-number">03</span><h2>Tonight’s little plan</h2></div><span class="helper-label">Made for your kitchen</span></div>
+          <div class="meal-card" id="meal-card"></div>
+        </section>
+
+        <footer class="footer"><span>Made with care by <strong>ByteNova</strong></span><span>Small steps. Good suppers.</span></footer>
+      </main>
+    </div>
+
+    <dialog id="shopping-dialog" class="shopping-dialog">
+      <div class="dialog-head"><div><span class="eyebrow">READY WHEN YOU ARE</span><h2>Your shopping list</h2></div><button class="close-button" id="shopping-close" aria-label="Close">×</button></div>
+      <div id="shopping-items" class="shopping-items"></div>
+      <p class="dialog-note">A short list, made from tonight’s plan.</p>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

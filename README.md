@@ -27,25 +27,15 @@ If port 4173 is already in use, run `$env:PORT = "4174"; npm.cmd start` and visi
 
 `get_pantry`, `add_pantry_item`, `remove_pantry_item`, `get_preferences`, `save_preferences`, `plan_meal`, `add_to_shopping_list`, and `get_shopping_list` are served by `/mcp`. The server implements MCP `2025-11-25` over Streamable HTTP.
 
-## Prepare private household hosting on Cloudflare
+## Public hosting on Cloudflare
 
-This deployment uses Cloudflare Workers for the app and D1 for shared household data. The free D1 tier currently includes 5 million rows read per day, 100,000 rows written per day, and 5 GB storage; limits and plans can change. Create a Cloudflare account, then from this folder:
+This deployment uses Cloudflare Workers for the app and D1 for shared data. Anyone with the public link can view and change the same pantry, preferences, and shopping list. Do not use it for private household information. Cloudflare Workers Free has a daily request limit; if it is reached, requests stop until the limit resets.
 
-```powershell
-npx wrangler login
-npx wrangler d1 create supper-sense-household
-```
-
-Copy the database ID returned by the second command into `database_id` in `wrangler.jsonc`, replacing the placeholder. Then apply the starter pantry and deploy:
+The Worker URL is enabled with `workers_dev: true`. To deploy updates from this project folder, run:
 
 ```powershell
-npx wrangler d1 migrations apply supper-sense-household --remote
-npx wrangler deploy
+npx.cmd wrangler deploy
 ```
-
-**Before sharing the deployed address, protect the Worker with Cloudflare Access.** In Cloudflare Zero Trust, create an Access application for the Worker hostname, add an Allow policy limited to the household email addresses, and use an email one-time PIN identity provider. Confirm a signed-out browser is denied and an allowed household account can sign in. Do not share the `workers.dev` address until this is enabled. Access is configured in the Cloudflare dashboard; this project does not silently create or change your Cloudflare account settings.
-
-All logged-in household members share one pantry, preference set, and shopping list. This is a single-household app, not a multi-tenant service. For hackathon judging, the official rules require judges to be able to evaluate a private project; if submitting this household-locked deployment, arrange an evaluation login or provide the required access instructions without exposing real household data.
 
 ## Hackathon demo
 

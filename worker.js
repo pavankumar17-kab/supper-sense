@@ -78,7 +78,7 @@ async function handleMcp(request, env) {
             protocolVersion,
             capabilities: { tools: { listChanged: false } },
             serverInfo: { name: 'supper-sense', version: '1.0.0' },
-            instructions: 'Use the shared household pantry and preferences to suggest simple dinners. Ask before adding missing ingredients to the shopping list.',
+            instructions: 'Use the shared pantry and preferences to suggest simple dinners. Ask before adding missing ingredients to the shopping list.',
           },
         });
       case 'ping':
@@ -114,7 +114,7 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === '/mcp') return handleMcp(request, env);
     if (url.pathname === '/api/meta') {
-      return Response.json({ storage: 'cloudflare-d1', privacy: 'Your household shares this private Supper Sense pantry and shopping list.' }, { headers: { 'Cache-Control': 'no-store' } });
+      return Response.json({ storage: 'cloudflare-d1', privacy: 'This public Supper Sense instance shares its pantry, preferences, and shopping list with everyone using the app.' }, { headers: { 'Cache-Control': 'no-store' } });
     }
     if (url.pathname === '/api/health') return Response.json({ ok: true }, { headers: { 'Cache-Control': 'no-store' } });
     return env.ASSETS.fetch(request);
